@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Feed Page</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/common.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/feed.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div th:replace="fragments/navbar"></div>
+		<div class="panel-group" style="margin-top:40px">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<span th:utext="${user.name + ' ' + user.lastName + ' (' + user.email + ')'}"></span>
+				</div>
+				<div class="container">
+					<h3>Posts</h3>
+				</div>
+				<div th:each="postX : ${posts}" class="post">
+					<a th:value="${postX.id}" th:if="${user.id == postX.user.id}" class="del-btn" title="Delete post" >✖</a>
+					<a th:href="@{/editPost/} + ${postX.id}" th:if="${user.id == postX.user.id}" class="edit-btn" title="Edit post">✎</a>
+       				<p class="post-content" th:utext="${postX.content}"></p>
+       				
+       				<div class="content-editor" style="display:none">
+       					<input type="text" th:id="content" th:name="content" th:value="${postX.content}"  />
+       					<button type="submit">Save changes</button>
+       					<br/>
+       				</div>
+       				
+       				<div class="post-footer">
+       					<a th:href="${'/user?email=' + postX.user.email}" class="nome" th:text="${postX.user.name + ' ' + postX.user.LastName}"></a>
+       					<span class="data" th:text="${postX.creationDate}"></span>
+       				</div>
+       				
+       				
+       			</form>
+				
+			</div>
+		</div>
+		
+	</div>
+	<script>
+		$(".del-btn").click((e)=>{
+			if(confirm("This action is irreversible. Are you really sure you want to delete this post?")){
+				window.location="/deletePost/" + $(e.target).attr("value")
+			}
+		})
+	</script>
+</body>
+</html>

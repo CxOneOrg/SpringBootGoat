@@ -1,0 +1,40 @@
+.admin-message-text {
+	font-style: normal;
+	font-size: 22px;
+	color: #004080;
+}
+
+.post{
+	padding: 15px 20px;
+	margin: 15px 30px;
+	background-color: #ccc;
+}
+.post > .post-footer > .data{
+	float: right;
+}
+
+.post > .edit-btn{
+	float: right;
+	margin-left: 10px;
+	
+}
+
+.post > .edit-btn:hover{
+	font-size:20px;
+	cursor: pointer;
+}
+
+.post > .del-btn{
+	float: right;
+	margin-left: 10px;
+	
+}
+
+.post > .del-btn:hover{
+	font-size:20px;
+	cursor: pointer;
+}
+
+.post> .post-footer{
+	margin-top: 15px;
+}
