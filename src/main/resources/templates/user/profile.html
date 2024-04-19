@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Admin Page</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/common.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div th:replace="fragments/navbar"></div>
+		   
+		
+		<div class="container">
+			<div th:if="${userX !=null}" class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<h1 th:text="${userX.name + ' ' + userX.lastName}"></h1>
+					<h3 th:text="${userX.email}"></h3>
+					<!-- <p><strong>Number of posts: </strong><span th:text="${#lists.size(userX.posts)}"></span></p>-->
+					<p><strong>Bio: </strong><span th:text="${userX.bio}"></span></p>
+					<div th:if="${user.id == userX.id}">
+						<a class="button" th:href="${'/editUser/' + userX.id}">Edit your profile</a>
+						<button class="button" id="upload_button">Upload posts from XML file</button>
+						<form id="upload_form" style="display:none" method="POST" action="/user/upload" enctype="multipart/form-data">
+							<br/>
+						    <input type="file" name="file" /><br/><br/>
+						    <input type="submit" value="Submit" />
+						</form>
+					</div>
+					
+					
+				</div>
+			</div>
+			
+			<div th:unless="${userX !=null}">
+				<p>There's no user with the email <strong th:utext="${#httpServletRequest.getParameter('email')}"></strong></p>
+			</div>
+		</div>
+		
+	</div>
+	<script>
+		$("#upload_button").click(()=>{
+			$("#upload_form").toggle();
+		})
+	</script>
+</body>
+</html>

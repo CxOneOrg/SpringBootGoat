@@ -1,0 +1,11 @@
+<div class="topnav">
+  <a th:class="${#httpServletRequest.requestURI.matches('.*/feed') ? 'active' : ''}" href="/feed">Feed</a>
+  <a th:class="${(userX!=null && userX.id == user.id && #httpServletRequest.requestURI.matches('.*/user?email=.*')) ? 'active' : ''}" th:href="${'/user?email=' + user.email}">My profile</a>
+  <a th:class="${#httpServletRequest.requestURI.matches('.*/addPost') ? 'active' : ''}" href="/addPost">Post Something</a>
+  <a><input type="text" style="height: 22px; color:black;" placeholder="Write someone's email" id="findEmail"/></a>
+  <a href="#" onclick="window.location='/user?email='+document.getElementById('findEmail').value">🔍</a>
+  <a href="/logout">Logout</a>
+</div>
+<div>
+	<h4 th:if="${message!=null}" th:text="${message}"></h4>
+</div>
